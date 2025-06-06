@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { format } from 'date-fns'
-import { 
-  getTrip, 
-  getTripItinerary, 
-  deleteTrip 
+import {
+  getTrip,
+  getTripItinerary,
+  deleteTrip,
+  deleteAccommodation,
+  deleteActivity,
+  deleteTransportation
 } from '../services/tripService'
 
 const TripDetails = () => {
@@ -22,7 +25,7 @@ const TripDetails = () => {
         setLoading(true)
         const tripData = await getTrip(id)
         setTrip(tripData)
-        
+
         const itineraryData = await getTripItinerary(id)
         setItinerary(itineraryData)
       } catch (error) {
@@ -44,6 +47,31 @@ const TripDetails = () => {
     } catch (error) {
       console.error('Error deleting trip:', error)
       toast.error('Failed to delete trip')
+    }
+  }
+
+  const handleDeleteItem = async (item) => {
+    if (!window.confirm(`Are you sure you want to delete this ${item.type}?`)) {
+      return
+    }
+
+    try {
+      if (item.type === 'accommodation') {
+        await deleteAccommodation(item.data._id)
+      } else if (item.type === 'activity') {
+        await deleteActivity(item.data._id)
+      } else if (item.type === 'transportation') {
+        await deleteTransportation(item.data._id)
+      }
+
+      toast.success(`${item.type.charAt(0).toUpperCase() + item.type.slice(1)} deleted successfully`)
+
+      // Refresh the itinerary
+      const itineraryData = await getTripItinerary(id)
+      setItinerary(itineraryData)
+    } catch (error) {
+      console.error(`Error deleting ${item.type}:`, error)
+      toast.error(`Failed to delete ${item.type}`)
     }
   }
 
@@ -111,7 +139,7 @@ const TripDetails = () => {
               </div>
             )}
           </div>
-          
+
           <div className="flex space-x-2">
             <Link
               to={`/trips/${id}/edit`}
@@ -200,12 +228,13 @@ const TripDetails = () => {
                   </div>
                   <div className="flex space-x-2">
                     <Link
-                      to={`/trips/${id}/${item.type}s/${item.data._id}/edit`}
+                      to={`/trips/${id}/${item.type === 'activity' ? 'activities' : item.type === 'accommodation' ? 'accommodations' : 'transportation'}/${item.data._id}/edit`}
                       className="text-primary-600 hover:text-primary-800"
                     >
                       Edit
                     </Link>
                     <button
+                      onClick={() => handleDeleteItem(item)}
                       className="text-red-600 hover:text-red-800"
                     >
                       Delete

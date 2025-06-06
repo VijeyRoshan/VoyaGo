@@ -16,6 +16,9 @@ import EditTrip from './pages/EditTrip'
 import AddAccommodation from './pages/AddAccommodation'
 import AddTransportation from './pages/AddTransportation'
 import AddActivity from './pages/AddActivity'
+import EditAccommodation from './pages/EditAccommodation'
+import EditTransportation from './pages/EditTransportation'
+import EditActivity from './pages/EditActivity'
 import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 
@@ -62,9 +65,9 @@ function App() {
         <Route path="trips/:id/accommodations/add" element={<AddAccommodation />} />
         <Route path="trips/:id/transportation/add" element={<AddTransportation />} />
         <Route path="trips/:id/activities/add" element={<AddActivity />} />
-        <Route path="trips/:id/accommodations/:itemId/edit" element={<TripDetails />} />
-        <Route path="trips/:id/transportation/:itemId/edit" element={<TripDetails />} />
-        <Route path="trips/:id/activities/:itemId/edit" element={<TripDetails />} />
+        <Route path="trips/:id/accommodations/:itemId/edit" element={<EditAccommodation />} />
+        <Route path="trips/:id/transportation/:itemId/edit" element={<EditTransportation />} />
+        <Route path="trips/:id/activities/:itemId/edit" element={<EditActivity />} />
         <Route path="profile" element={<Profile />} />
       </Route>
     </Routes>

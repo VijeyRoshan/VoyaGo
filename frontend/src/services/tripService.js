@@ -32,6 +32,11 @@ export const getTripAccommodations = async (tripId) => {
   return response.data.data.accommodations
 }
 
+export const getAccommodation = async (id) => {
+  const response = await api.get(`/api/accommodations/${id}`)
+  return response.data.data.accommodation
+}
+
 export const createAccommodation = async (accommodationData) => {
   const response = await api.post('/api/accommodations', accommodationData)
   return response.data.data.accommodation
@@ -50,6 +55,11 @@ export const deleteAccommodation = async (id) => {
 // Transportation services
 export const getTripTransportation = async (tripId) => {
   const response = await api.get(`/api/trips/${tripId}/transportation`)
+  return response.data.data.transportation
+}
+
+export const getTransportation = async (id) => {
+  const response = await api.get(`/api/transportation/${id}`)
   return response.data.data.transportation
 }
 
@@ -72,6 +82,11 @@ export const deleteTransportation = async (id) => {
 export const getTripActivities = async (tripId) => {
   const response = await api.get(`/api/trips/${tripId}/activities`)
   return response.data.data.activities
+}
+
+export const getActivity = async (id) => {
+  const response = await api.get(`/api/activities/${id}`)
+  return response.data.data.activity
 }
 
 export const createActivity = async (activityData) => {

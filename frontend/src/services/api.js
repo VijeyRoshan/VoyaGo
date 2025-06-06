@@ -10,7 +10,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true,
-  timeout: 10000 // 10 second timeout
+  timeout: 30000 // 30 second timeout for Gemini AI calls
 })
 
 // Add a request interceptor to add the auth token to every request

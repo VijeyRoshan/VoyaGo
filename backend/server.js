@@ -31,6 +31,7 @@ const tripRoutes = require('./routes/tripRoutes');
 const accommodationRoutes = require('./routes/accommodationRoutes');
 const transportationRoutes = require('./routes/transportationRoutes');
 const activityRoutes = require('./routes/activityRoutes');
+const suggestionRoutes = require('./routes/suggestionRoutes');
 
 // Initialize Express app
 const app = express();
@@ -38,7 +39,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173'],
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000', 'http://127.0.0.1:5173', 'http://127.0.0.1:5174'],
   credentials: true
 }));
 app.use(express.json());
@@ -71,6 +72,7 @@ app.use('/api/trips', tripRoutes);
 app.use('/api/accommodations', accommodationRoutes);
 app.use('/api/transportation', transportationRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/suggestions', suggestionRoutes);
 
 // Root route
 app.get('/', (req, res) => {
